@@ -10,6 +10,9 @@ conectDB();
 //port of the server
 const PORT = process.env.PORT || 5000;
 
+//import routes
+app.use('/api/users', require('./routes/users'));
+
 //define the main page
 app.get('/', (req, res) => {
     res.send('Hello world!');
