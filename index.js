@@ -7,8 +7,11 @@ const app = express();
 //CONECT TO DATABASE
 conectDB();
 
+//enable express.json
+app.use(express.json({ extended: true }));
+
 //port of the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 9000;
 
 //import routes
 app.use('/api/users', require('./routes/users'));
