@@ -11,7 +11,7 @@ conectDB();
 app.use(express.json({ extended: true }));
 
 //port of the server
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 9000;
 
 //import routes
 app.use('/api/users', require('./routes/users'));
@@ -25,3 +25,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`The server is running in the port ${PORT}`);
 });
+
+
