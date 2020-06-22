@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 exports.createUser = async (req, res) => {
 
 
-    //review if there is errors
+    //review if there are errors
     const errors = validationResult(req);
     if( !errors.isEmpty() ) {
         return res.status(400).json({ errors: errors.array() })
