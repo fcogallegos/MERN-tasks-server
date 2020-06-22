@@ -37,3 +37,36 @@ exports.getProjects = async (req, res) => {
         res.status(500).send('There was an error');
     }
 }
+
+//update project
+exports.updateProject = async (req, res) => {
+    
+    //review if there are errors
+    const errors = validationResult(req);
+    if( !errors.isEmpty() ) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+
+    //extract the information of project
+    const { name } = req.body;
+    const newProject = {};
+
+    if(name){
+        newProject.name = name;
+    }
+
+    try {
+        
+        //check the ID
+
+        //if the project exist or no
+
+        //verify the creator of project
+
+        //update
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error in the server');
+    }
+}
