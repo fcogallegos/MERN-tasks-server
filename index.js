@@ -16,6 +16,8 @@ const PORT = process.env.PORT || 14000;
 //import routes
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/projects', require('./routes/projects'));
+
 
 //define the main page
 app.get('/', (req, res) => {
