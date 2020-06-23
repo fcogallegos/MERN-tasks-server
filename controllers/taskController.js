@@ -11,8 +11,6 @@ exports.createTask = async (req, res) => {
     if( !errors.isEmpty() ) {
         return res.status(400).json({ errors: errors.array() })
     }
-
-    
     
     try {
 
@@ -39,6 +37,33 @@ exports.createTask = async (req, res) => {
         console.log(error);
         res.status(500).send({ msg: 'There was a error' });
     }
+}
 
 
+// get the tasks for project
+exports.getTasks = async (req, res) => {
+    
+    try {
+        //extract the project and check if exist
+        const { project } = req.body;
+    
+        
+        const existProject = await Project.findById(project);
+        if(!existProject) {
+            return res.status(404).send({ msg: 'Project not found' });
+        }
+
+        //check if the current project belongs to the user authenticated
+        if( existProject.creator.toString() !== req.user.id ) {
+            return res.status(401).send({ msg: 'Not authorized' });
+        }
+
+        // get the tasks for projects
+        const tasks = await Task.find({ project });
+        res.json({ tasks });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ msg: 'There was a error' });
+    }
 }
