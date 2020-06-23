@@ -29,4 +29,10 @@ router.put('/:id',
     taskController.updateTask
 );
 
+// delete task
+router.delete('/:id', 
+    auth,
+    taskController.deleteTask
+);
+
 module.exports = router;
