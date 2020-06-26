@@ -45,7 +45,7 @@ exports.getTasks = async (req, res) => {
     
     try {
         //extract the project and check if exist
-        const { project } = req.body;
+        const { project } = req.query;
     
         
         const existProject = await Project.findById(project);
@@ -58,8 +58,8 @@ exports.getTasks = async (req, res) => {
             return res.status(401).send({ msg: 'Not authorized' });
         }
 
-        // get the tasks for projects
-        const tasks = await Task.find({ project });
+        // get the tasks for project
+        const tasks = await Task.find({ project }).sort({ created: -1 });
         res.json({ tasks });
 
     } catch (error) {
@@ -92,14 +92,9 @@ exports.updateTask = async (req, res) => {
 
         // create an object with the new information
         const newTask = {};
-
-        if(name) {
-            newTask.name = name;
-        }
-
-        if(status) {
-            newTask.status = status;
-        }
+        newTask.name = name;
+        newTask.status = status;
+        
 
         // save the task
         task = await Task.findOneAndUpdate({ _id : req.params.id }, newTask, { new : true });
@@ -116,7 +111,7 @@ exports.updateTask = async (req, res) => {
 exports.deleteTask = async (req, res) => {
     try {
         //extract the project and check if exist
-        const { project } = req.body;
+        const { project } = req.query;
     
         //check if the task exist or no
         let task = await Task.findById(req.params.id);
